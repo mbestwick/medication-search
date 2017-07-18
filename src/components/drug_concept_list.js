@@ -2,8 +2,7 @@ import React from 'react';
 import DrugConceptItem from './drug_concept_item';
 
 const DrugConceptList = (props) => {
-  const drugs = props.drugConcepts.map((drug) => {
-    const index = props.drugConcepts.indexOf(drug);
+  const drugs = props.drugConcepts.map((drug, index) => {
     return (
       <DrugConceptItem
         onDrugSelect={props.onDrugSelect}

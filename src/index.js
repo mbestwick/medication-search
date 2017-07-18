@@ -50,14 +50,13 @@ class App extends Component {
   }
 
   render() {
-    const drugConceptSearch = _.debounce((term) => {
-      this.drugConceptSearch(term)}, 300);
-
-    const placeholder = 'Search a drug...'
+    const placeholder = 'Search a drug...';
 
     return (
       <div>
-        <SearchBar placeholder={placeholder} onSearchTermChange={drugConceptSearch} />
+        <SearchBar
+          placeholder={placeholder}
+          onSearchTermChange={(term) => this.drugConceptSearch(term)} />
         <DrugConceptList
           onDrugSelect={selectedDrugConcept => this.relatedGroupSearch(selectedDrugConcept)}
           drugConcepts={this.state.drugConcepts} />

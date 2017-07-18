@@ -6,8 +6,7 @@ const AlternativeDrugList = (props) => {
     return <div>Alternatives:</div>;
   }
 
-  const alternativeDrugs = props.alts.map((alt) => {
-    const index = props.alts.indexOf(alt);
+  const alternativeDrugs = props.alts.map((alt, index) => {
     return (
       <AlternativeDrugItem
         key={index}
