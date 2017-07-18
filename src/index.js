@@ -15,20 +15,38 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      drugConcepts: [] ,
+      drugConcepts: [],
+      validConcept: true,
       selectedDrugConcept: null,
-      alternativeDrugs: []
+      alternativeDrugs: [],
+      validAlts: true
     };
+  }
+
+  searchClear() {
+    this.setState({
+      drugConcepts: [],
+      validConcept: true,
+      selectedDrugConcept: null,
+      alternativeDrugs: [],
+      validAlts: true
+    });
   }
 
   drugConceptSearch(term) {
     var apiPromise = searchConcepts(term);
     apiPromise.then((results) => {
-      var concepts = results.drugGroup.conceptGroup[1].conceptProperties;
-      this.setState({
-        drugConcepts: concepts,
-        selectedDrugConcept: concepts[0]
-      });
+      try {
+        var concepts = results.drugGroup.conceptGroup[1].conceptProperties;
+        this.setState({
+          drugConcepts: concepts,
+          selectedDrugConcept: concepts[0],
+          validConcept: true
+        });
+      }
+      catch(err) {
+        this.setState({ validConcept: false });
+      }
     });
   }
 
@@ -36,16 +54,31 @@ class App extends Component {
     this.setState({ selectedDrugConcept });
     var apiPromise = searchRelatedGroup(selectedDrugConcept);
     apiPromise.then((results) => {
-      var rxcui = results.relatedGroup.conceptGroup[0].conceptProperties[0].rxcui;
-      this.alternativeDrugSearch(rxcui);
+      try {
+        var rxcui = results.relatedGroup.conceptGroup[0].conceptProperties[0].rxcui;
+        this.setState({ validAlts: true });
+        this.alternativeDrugSearch(rxcui);
+      }
+      catch(err) {
+        this.setState({ validAlts: false });
+      }
     });
   }
 
   alternativeDrugSearch(rxcui) {
     var apiPromise = searchAlternatives(rxcui);
     apiPromise.then((results) => {
-      var alternativeDrugs = results.relatedGroup.conceptGroup[0].conceptProperties;
-      this.setState({ alternativeDrugs });
+      try {
+        var alternativeDrugs = results.relatedGroup.conceptGroup[0].conceptProperties;
+        this.setState({
+          alternativeDrugs: alternativeDrugs,
+          validAlts: true
+        });
+      }
+      catch(err) {
+        this.setState({ validAlts: false });
+      }
+
     });
   }
 
@@ -56,12 +89,15 @@ class App extends Component {
       <div>
         <SearchBar
           placeholder={placeholder}
-          onSearchTermChange={(term) => this.drugConceptSearch(term)} />
+          onSearchTermChange={(term) => this.drugConceptSearch(term)}
+          onSearchClear={() => this.searchClear()} />
         <DrugConceptList
           onDrugSelect={selectedDrugConcept => this.relatedGroupSearch(selectedDrugConcept)}
-          drugConcepts={this.state.drugConcepts} />
+          drugConcepts={this.state.drugConcepts}
+          validConcept={this.state.validConcept}/>
         <AlternativeDrugList
-          alts={this.state.alternativeDrugs}/>
+          alts={this.state.alternativeDrugs}
+          validAlts={this.state.validAlts} />
       </div>
     );
   }

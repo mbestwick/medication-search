@@ -16,13 +16,21 @@ class SearchBar extends Component {
     }
   }
 
+  onSearchChange(term) {
+    if (term === ''){
+      this.props.onSearchClear();
+    }
+  }
+
   render() {
     return (
       <div className="search-bar">
         <form onSubmit={(e) => this.onSubmit(e)}>
           <input
+            type="search"
             id="searchTerm"
-            placeholder={this.props.placeholder}/>
+            placeholder={this.props.placeholder}
+            onChange={(e) => this.onSearchChange(e.target.value)} />
           <button type="submit">Search</button>
         </form>
       </div>
