@@ -4,15 +4,15 @@ import AlternativeDrugItem from './alternative_drug_item';
 const AlternativeDrugList = (props) => {
   if (!props.validAlts) {
     return (
-      <div>
-        <div>Alternatives:</div>
+      <div className="col-md-6 list-group">
+        <h3>Alternatives:</h3>
         <div>No alternatives found.</div>
       </div>
     );
   }
 
   if (props.alts.length === 0) {
-    return <div>Alternatives:</div>;
+    return <div className="col-md-6 list-group"><h3>Alternatives:</h3></div>;
   }
 
   const alternativeDrugs = props.alts.map((alt, index) => {
@@ -25,7 +25,7 @@ const AlternativeDrugList = (props) => {
 
   return (
     <ul className="col-md-6 list-group">
-      <div>Alternatives:</div>
+      <h3>Alternatives:</h3>
       { alternativeDrugs }
     </ul>
   );

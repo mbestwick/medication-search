@@ -1,10 +1,16 @@
 import React from 'react';
 
-const DrugConceptItem = ({drug, onDrugSelect}) => {
+const DrugConceptItem = ({drug, onDrugSelect, selectedDrugName}) => {
+
+  function onClickAction(event) {
+    onDrugSelect(drug);
+    event.target.style = 'background-color: #D6DCE4';
+  }
 
   return (
     <li className="list-group-item"
-        onClick={() => onDrugSelect(drug)} >
+        id={drug.name}
+        onClick={(e) => onClickAction(e)} >
       {drug.name}
     </li>
   );

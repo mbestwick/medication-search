@@ -5,7 +5,7 @@ const DrugConceptList = (props) => {
   if (!props.validConcept) {
     return (
       <div>
-        <div>Concepts:</div>
+        <h3>Concepts:</h3>
         <div>No results found.</div>
       </div>
     );
@@ -16,13 +16,14 @@ const DrugConceptList = (props) => {
       <DrugConceptItem
         onDrugSelect={props.onDrugSelect}
         key={index}
-        drug={drug} />
+        drug={drug}
+        selectedDrugName={props.selectedDrugName}/>
     );
   });
 
   return (
     <ul className="col-md-6 list-group">
-      Concepts:
+      <h3>Concepts:</h3>
       {drugs}
     </ul>
   );

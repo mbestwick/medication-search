@@ -40,7 +40,6 @@ class App extends Component {
         var concepts = results.drugGroup.conceptGroup[1].conceptProperties;
         this.setState({
           drugConcepts: concepts,
-          selectedDrugConcept: concepts[0],
           validConcept: true
         });
       }
@@ -84,6 +83,12 @@ class App extends Component {
 
   render() {
     const placeholder = 'Search a drug...';
+    if (this.state.selectedDrugConcept){
+      var selectedDrugName = this.state.selectedDrugConcept.name;
+    }
+    else {
+      var selectedDrugName = '';
+    }
 
     return (
       <div>
@@ -94,7 +99,8 @@ class App extends Component {
         <DrugConceptList
           onDrugSelect={selectedDrugConcept => this.relatedGroupSearch(selectedDrugConcept)}
           drugConcepts={this.state.drugConcepts}
-          validConcept={this.state.validConcept}/>
+          validConcept={this.state.validConcept}
+          selectedDrugName={selectedDrugName}/>
         <AlternativeDrugList
           alts={this.state.alternativeDrugs}
           validAlts={this.state.validAlts} />

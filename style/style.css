@@ -1,21 +1,27 @@
+.search {
+  background-color: lightgrey;
+  border: 10px solid;
+  border-color: #003366;
+  padding: 5px;
+  margin-top: 25px;
+}
+
 .search-bar {
-  margin: 20px;
+  margin: 5px;
   text-align: center;
 }
 
 .search-bar input {
-  width: 75%;
+  width: 90%;
 }
 
-.video-item img {
-  max-width: 64px;
-}
+.list-group {
+  border: 3px solid;
+  background-color: #F2F2F2;
+  border-color: #FF9966;
+  padding: 0;
+  text-align: center;
 
-.video-detail .details {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
 }
 
 .list-group-item {
@@ -26,6 +32,7 @@
   background-color: #eee;
 }
 
-#clicked {
-  background-color: #fff;
+li {
+    margin-left: 15px;
+    margin-bottom: 5px;
 }
